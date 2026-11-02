@@ -14,7 +14,7 @@
   "fiscalYearStartMonth": 0,
   "weekStart": "",
   "schemaVersion": 42,
-  "version": 1,
+  "version": 2,
   "refresh": "30s",
   "time": {
     "from": "now-6h",
@@ -1291,7 +1291,7 @@
       "id": 23,
       "type": "timeseries",
       "title": "Webhook provider requests",
-      "description": "Webhook provider requests across all supported methods",
+      "description": "Current webhook provider request metrics. Upstream documents these _total series as gauges, so this panel deliberately does not apply rate().",
       "datasource": {
         "type": "prometheus",
         "uid": "$datasource"
@@ -1305,7 +1305,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "sum by (job) (rate(external_dns_webhook_provider_adjustendpoints_requests_total{job=~\"$job\"}[$__rate_interval]) + rate(external_dns_webhook_provider_applychanges_requests_total{job=~\"$job\"}[$__rate_interval]) + rate(external_dns_webhook_provider_records_requests_total{job=~\"$job\"}[$__rate_interval]))",
+          "expr": "sum by (job) (external_dns_webhook_provider_adjustendpoints_requests_total{job=~\"$job\"} + external_dns_webhook_provider_applychanges_requests_total{job=~\"$job\"} + external_dns_webhook_provider_records_requests_total{job=~\"$job\"})",
           "legendFormat": "{{job}}",
           "editorMode": "code",
           "range": true
@@ -1313,7 +1313,7 @@
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "req/s",
+          "unit": "short",
           "color": {
             "mode": "palette-classic"
           },
@@ -1357,7 +1357,7 @@
       "id": 24,
       "type": "timeseries",
       "title": "Webhook provider errors",
-      "description": "Webhook provider errors across all supported methods",
+      "description": "Current webhook provider error metrics. Upstream documents these _total series as gauges, so this panel deliberately does not apply rate().",
       "datasource": {
         "type": "prometheus",
         "uid": "$datasource"
@@ -1371,7 +1371,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "sum by (job) (rate(external_dns_webhook_provider_adjustendpoints_errors_total{job=~\"$job\"}[$__rate_interval]) + rate(external_dns_webhook_provider_applychanges_errors_total{job=~\"$job\"}[$__rate_interval]) + rate(external_dns_webhook_provider_records_errors_total{job=~\"$job\"}[$__rate_interval]))",
+          "expr": "sum by (job) (external_dns_webhook_provider_adjustendpoints_errors_total{job=~\"$job\"} + external_dns_webhook_provider_applychanges_errors_total{job=~\"$job\"} + external_dns_webhook_provider_records_errors_total{job=~\"$job\"})",
           "legendFormat": "{{job}}",
           "editorMode": "code",
           "range": true
@@ -1379,7 +1379,7 @@
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "errors/s",
+          "unit": "short",
           "color": {
             "mode": "palette-classic"
           },
